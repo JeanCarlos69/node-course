@@ -1,23 +1,54 @@
 const express = require('express');
 const morgan = require('morgan'); // 3rd-party middleware
+const mongoose = require('mongoose');
+const Blog = require('./models/blogs');
 
 //creating an instance of an express app
 const app = express();
 
-//listen for request
-app.listen(3036);
+// data base here
+const dbURL = 'mongodb+srv://<user>:<password>@node-ninja.mhsls.mongodb.net/test?retryWrites=true&w=majority'
+
+// {useNewUrlParser: true, useUnifiedTopology: true} to stop duplication warning
+mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true})
+        .then(result => app.listen(3036))
+        .catch(err => console.log(err))
+
 
 // middleware and static
 app.use(express.static('public'));
 app.use(morgan('dev'));
 
-app.use((req, res, next) => {
-    console.log('new request made:');
-    console.log('host: ', req.hostname);
-    console.log('path: ', req.path);
-    console.log('method: ', req.method);
-    next();
-  });
+//mongoose and mongo sandbox routes
+app.get('/add-blog', (req,res) => {
+    const blog = new Blog({
+        title: 'Jean Carlos',
+        snippet: 'Prueba 3',
+        body: 'Si esto sale es que funciona'
+    });
+
+    blog.save()
+        .then(result =>{ res.send(result)})
+        .catch(err => console.log(err));
+})
+
+app.get('/all-blogs', (req,res) => {
+    
+    Blog.find()
+        .then(result =>{ res.send(result)})
+        .catch(err => console.log(err));
+});
+
+app.get('/single-blog', (req,res) => {
+    
+    Blog.findById('6092f362683ddc50f432c238')
+        .then(result =>{ 
+            res.send(result)
+        })
+        .catch(err => console.log(err));
+})
+
+
 
 //register view engine
 app.set('view engine', 'ejs');

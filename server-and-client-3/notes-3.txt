@@ -1,0 +1,24 @@
+in app.js:
+
+we use the middleware ".use()" to run a function, the extra parameter called "next" to make it 
+go to the next middleware so the page won't be hanging. example
+
+app.use((req,res, next) =>{
+    console.log('New request made: ');
+    console.log('host: ', req.hostname);
+    console.log('path: ', req.path);
+    console.log('method: ', req.method);
+    next();
+});
+
+
+static file are the one that we are going to make public such as images, css styles, etc...
+
+the server protects everything so we have to specify what files should be public
+app.use(express.static(name_of_the_folder_here)) in this midddleware we're making able the "public" 
+folder with our files
+
+we don't want the server listening to a request until the connection has been made  
+mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true})
+        .then(result => app.listen(3036))
+        .catch(err => console.log(err))
