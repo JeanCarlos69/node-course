@@ -1,0 +1,4 @@
+to make sure this works they has to be in the same folder and by 'they' I mean the main.js and the folder 
+we set as static
+
+otherwise the code would be something like 

@@ -1,10 +1,23 @@
 const express = require('express');
+const morgan = require('morgan'); // 3rd-party middleware
 
 //creating an instance of an express app
 const app = express();
 
 //listen for request
 app.listen(3036);
+
+// middleware and static
+app.use(express.static('public'));
+app.use(morgan('dev'));
+
+app.use((req, res, next) => {
+    console.log('new request made:');
+    console.log('host: ', req.hostname);
+    console.log('path: ', req.path);
+    console.log('method: ', req.method);
+    next();
+  });
 
 //register view engine
 app.set('view engine', 'ejs');
