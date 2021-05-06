@@ -1,0 +1,11 @@
+in create.ejs:
+the <input type="text" id="title" name="title" required> tag the "name" atribute is
+the name of the object.
+
+in app.js:
+app.use(express.urlencoded({extended: true})) it's a middleware to handle all the data
+enconded data and it passes it like an object that we can use
+
+/blogs/:id
+
+the semicolon before the name so we prevent our 
