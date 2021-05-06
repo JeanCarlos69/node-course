@@ -1,1 +1,0 @@
-an Schema is the thing that define how will be our db

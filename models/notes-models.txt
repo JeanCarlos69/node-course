@@ -1,0 +1,9 @@
+an Schema is the thing that define how will be our db
+
+model provides us with an interface by which to communicate with a db collection for that document type
+
+const Blog = mongoose.model('Blog', blogSchema);
+
+the name it's important because it'd look for the blogs collection in oir mongoDB  adding an 's' to it
+
+so first argument is the name and the second is the Schema
